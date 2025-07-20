@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head><link
+  href="https://fonts.googleapis.com/icon?family=Material+Icons"
+  rel="stylesheet"
+/>
+    <script src="/assets/vendor/jquery/jquery.min.js"></script>
+    <script src="/assets/vendor/popper/popper.min.js"></script>
+    <script src="/assets/vendor/bootstrap/bootstrap.min.js"></script>
+    <script src="/assets/js/argon-design-system.min.js"></script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/assets/css/paper-dashboard.css" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Guía de Exportaciones</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css"
+    />
+    <link
+      href="https://use.fontawesome.com/releases/v5.0.6/css/all.css"
+      rel="stylesheet"
+    />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      :root {
+        --primary-color: #2480fc;
+        --text-color: #27344a;
+        --bg-color: #fff;
+        --secondary-bg: #f5f5f5;
+        --accent-blue: #0052cc;
+        --main-blue: #007bff;
+        --mango-yellow: #ffc107;
+        --tropical-orange: #ff5722;
+        --lime-green: #8bc34a;
+        --dark-green: #388e3c;
+        --mango-green: #28a745;
+      }
+      body {
+        font-family: "Open Sans", sans-serif;
+        background-color: var(--secondary-bg);
+        color: var(--text-color);
+      }
+      @font-face {
+        font-family: "Open Sans";
+        src: url("data:font/truetype;base64,...") format("truetype");
+      }
+      .floating-nav {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        z-index: 1000;
+      }
+      .floating-nav-button {
+        background-color: var(--primary-color);
+        color: var(--bg-color);
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        font-size: 24px;
+      }
+      .floating-nav-menu {
+        display: none;
+        position: absolute;
+        bottom: 60px;
+        right: 0;
+        background-color: var(--bg-color);
+        border-radius: 5px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        padding: 10px;
+      }
+      .floating-nav-menu.active {
+        display: block;
+      }
+      .floating-nav-item {
+        color: var(--text-color);
+        text-decoration: none;
+        display: block;
+        padding: 10px;
+        font-size: 16px;
+      }
+      .floating-nav-item:hover {
+        color: var(--primary-color);
+      }
+      @media (max-width: 768px) {
+        .floating-nav-button {
+          width: 40px;
+          height: 40px;
+          font-size: 20px;
+        }
+        .floating-nav-item {
+          font-size: 14px;
+        }
+      }
+      .main-section {
+        background-color: var(--main-blue);
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+        padding: 20px;
+      }
+      .content {
+        text-align: center;
+        color: var(--bg-color);
+        max-width: 700px;
+        z-index: 2;
+      }
+      .content h1 {
+        font-size: 4.75rem;
+        margin-bottom: 20px;
+      }
+      .content p {
+        font-size: 18px;
+        margin-bottom: 15px;
+      }
+      .cta-button {
+        background-color: var(--text-color);
+        color: var(--bg-color);
+        padding: 12px 15px;
+        border-radius: 5px;
+        text-decoration: none;
+        font-size: 0.875rem;
+        display: inline-flex;
+        align-items: center;
+        gap: 15px;
+        transition: 0.3s;
+      }
+      .cta-button:hover {
+        background-color: var(--bg-color);
+        color: var(--text-color);
+      }
+      .background-circles {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 100%;
+        z-index: 1;
+        background: var(--main-blue);
+      }
+      @media (max-width: 768px) {
+        .content h1 {
+          font-size: 2.5rem;
+        }
+        .content p {
+          font-size: 1rem;
+        }
+      }
+      .essential-card-container {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 30px;
+        padding: 40px;
+        max-width: 1390px;
+        margin: 0 auto;
+        background-color: var(--bg-color);
+        z-index: 2;
+      }
+      .essential-card {
+        background-color: var(--bg-color);
+        border: 1px solid #e4ebef;
+        border-radius: 10px;
+        padding: 30px;
+        text-align: center;
+        transition: transform 0.3s;
+        z-index: 2;
+      }
+      .essential-card.animate {
+        animation: popIn 0.5s ease-out;
+      }
+      @keyframes popIn {
+        from {
+          transform: scale(0.8);
+          opacity: 0;
+        }
+        to {
+          transform: scale(1);
+          opacity: 1;
+        }
+      }
+      .essential-card:hover {
+        transform: translateY(-5px);
+      }
+      .essential-card h3 {
+        font-size: 1.25rem;
+        margin-bottom: 15px;
+      }
+      .essential-card p {
+        font-size: 1rem;
+        color: #6c7a92;
+      }
+      @media (max-width: 768px) {
+        .essential-card-container {
+          grid-template-columns: 1fr;
+        }
+      }
+      .accordion-container {
+        max-width: 1200px;
+        margin: 40px auto;
+        padding: 0 20px;
+      }
+      .accordion-item {
+        margin-bottom: 10px;
+      }
+      .accordion-title {
+        background-color: var(--bg-color);
+        padding: 15px;
+        cursor: pointer;
+        font-size: 1.25rem;
+        border-radius: 5px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        z-index: 2;
+      }
+      .accordion-title::after {
+        content: "↓";
+        font-size: 1rem;
+      }
+      .accordion-title.active::after {
+        content: "↑";
+      }
+      .accordion-content {
+        display: none;
+        padding: 15px;
+        background-color: var(--bg-color);
+        border-radius: 5px;
+        z-index: 2;
+      }
+      .accordion-content.active {
+        display: block;
+      }
+      .footer {
+        background-color: var(--text-color);
+        color: var(--bg-color);
+        text-align: center;
+        padding: 20px;
+      }
+      .footer-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+      }
+      @media (max-width: 768px) {
+        .footer-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body class="bg-gray-100 font-['Roboto'] text-gray-800">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-lg fixed top-0 w-full z-10">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between h-16">
+          <div class="flex items-center">
+            <h1 class="text-xl font-bold text-blue-600">
+              Exportaciones al Extranjero
+            </h1>
+          </div>
+          <div class="flex items-center space-x-4">
+            <a
+              href="#inicio"
+              class="text-gray-600 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium"
+              >Inicio</a
+            >
+            <a
+              href="#proceso"
+              class="text-gray-600 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium"
+              >Proceso</a
+            >
+            <a
+              href="#requisitos"
+              class="text-gray-600 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium"
+              >Requisitos</a
+            >
+            <a
+              href="#contacto"
+              class="text-gray-600 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium"
+              >Contacto</a
+            >
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section
+      id="inicio"
+      class="pt-24 pb-12 bg-gradient-to-r from-blue-500 to-blue-700 text-white"
+    >
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <h2 class="text-3xl font-bold">📚 Guía Completa de Exportación</h2>
+        <p class="mt-4 text-lg">
+          Explore nuestra guía paso a paso para dominar el proceso de
+          exportación
+        </p>
+      </div>
+    </section>
+
+    <!-- Steps Section -->
+    <section class="py-12">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div
+            class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition"
+          >
+            <h3 class="text-lg font-semibold">🌟 Introducción</h3>
+            <p class="mt-2 text-gray-600">
+              Conceptos básicos y fundamentos de las exportaciones
+              internacionales
+            </p>
+          </div>
+          <div
+            class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition"
+          >
+            <h3 class="text-lg font-semibold">📋 Requisitos</h3>
+            <p class="mt-2 text-gray-600">
+              Documentación y requisitos legales necesarios para exportar
+            </p>
+          </div>
+          <div
+            class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition"
+          >
+            <h3 class="text-lg font-semibold">🔍 UPCI</h3>
+            <p class="mt-2 text-gray-600">
+              Unidad de Promoción del Comercio Internacional
+            </p>
+          </div>
+          <div
+            class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition"
+          >
+            <h3 class="text-lg font-semibold">🚀 ¿Cómo Inicio?</h3>
+            <p class="mt-2 text-gray-600">
+              Pasos iniciales y primeras acciones para comenzar a exportar
+            </p>
+          </div>
+          <div
+            class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition"
+          >
+            <h3 class="text-lg font-semibold">❓ ¿Es Complicado?</h3>
+            <p class="mt-2 text-gray-600">
+              Desmitificando el proceso de exportación
+            </p>
+          </div>
+          <div
+            class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition"
+          >
+            <h3 class="text-lg font-semibold">📄 Documentos</h3>
+            <p class="mt-2 text-gray-600">
+              Formularios, certificados y documentación oficial
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Welcome Section -->
+    <section class="py-12 bg-white">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <h2 class="text-2xl font-bold text-gray-800">
+          🌍 Bienvenidos a la Guía de Exportaciones
+        </h2>
+        <p class="mt-4 text-gray-600">
+          Esta página proporciona información detallada sobre cómo realizar
+          exportaciones al extranjero, incluyendo procesos, requisitos legales y
+          recursos útiles.
+        </p>
+      </div>
+    </section>
+
+    <!-- Process Section -->
+    <section id="proceso" class="py-12">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <h2 class="text-2xl font-bold text-gray-800">Proceso de Exportación</h2>
+        <div class="mt-6 bg-white p-6 rounded-lg shadow-md">
+          <h3 class="text-lg font-semibold">📋 Pasos Principales</h3>
+          <ul class="mt-4 list-disc list-inside text-gray-600">
+            <li>
+              Investigación de mercado: Identificar países objetivo y analizar
+              la demanda.
+            </li>
+            <li>
+              Registro como exportador: Obtener certificaciones necesarias ante
+              las autoridades competentes.
+            </li>
+            <li>
+              Logística: Coordinar transporte, almacenamiento y procesos
+              aduaneros.
+            </li>
+            <li>
+              Documentación: Preparar facturas comerciales, certificados de
+              origen, y permisos especiales.
+            </li>
+            <li>
+              Seguimiento: Monitorear el envío y confirmar la entrega exitosa.
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Requirements Section -->
+    <section id="requisitos" class="py-12 bg-gray-50">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <h2 class="text-2xl font-bold text-gray-800">Requisitos Legales</h2>
+        <div class="mt-6 bg-white p-6 rounded-lg shadow-md">
+          <h3 class="text-lg font-semibold">📄 Documentación Necesaria</h3>
+          <ul class="mt-4 list-disc list-inside text-gray-600">
+            <li>Registro en el padrón de exportadores ante el SAT</li>
+            <li>Certificados de calidad y origen según el producto</li>
+            <li>
+              Contratos comerciales internacionales debidamente formalizados
+            </li>
+            <li>Permisos sanitarios y fitosanitarios (cuando aplique)</li>
+            <li>Seguros de transporte para proteger la mercancía</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contacto" class="py-12">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <h2 class="text-2xl font-bold text-gray-800">Contacto y Recursos</h2>
+        <p class="mt-4 text-gray-600">
+          Para más información, contáctenos a través de los siguientes
+          organismos especializados:
+        </p>
+        <div class="mt-6 grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div class="bg-white p-6 rounded-lg shadow-md">
+            <h3 class="text-lg font-semibold">🏛️ SENASICA Jalisco</h3>
+            <p class="mt-2 text-gray-600">
+              Av. Alcalde 1351, Guadalajara <br />Tel: (33) 3668-0500 <br /><a
+                href="http://www.senasica.gob.mx"
+                class="text-blue-600 hover:underline"
+                >www.senasica.gob.mx</a
+              >
+            </p>
+          </div>
+          <div class="bg-white p-6 rounded-lg shadow-md">
+            <h3 class="text-lg font-semibold">💼 COFOCE Jalisco</h3>
+            <p class="mt-2 text-gray-600">
+              Av. Mariano Otero 1249, Guadalajara <br />Tel: (33) 3336-5800
+              <br /><a
+                href="http://www.cofoce.jalisco.gob.mx"
+                class="text-blue-600 hover:underline"
+                >www.cofoce.jalisco.gob.mx</a
+              >
+            </p>
+          </div>
+          <div class="bg-white p-6 rounded-lg shadow-md">
+            <h3 class="text-lg font-semibold">🌾 SAGARPA</h3>
+            <p class="mt-2 text-gray-600">
+              Secretaría de Agricultura Jalisco <br />Tel: (33) 3030-5000
+              <br /><a
+                href="http://agricultura.jalisco.gob.mx"
+                class="text-blue-600 hover:underline"
+                >agricultura.jalisco.gob.mx</a
+              >
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+    <div class="floating-nav">
+      <div class="floating-nav-button">✕</div>
+      <div class="floating-nav-menu">
+        <a href=".\mango\1_index.html" class="floating-nav-item">Inicio</a>
+        <a href=".\mango\2_introduccion.html" class="floating-nav-item"
+          >Introducción</a
+        >
+        <a href=".\mango\3_requisitos.html" class="floating-nav-item"
+          >Requisitos</a
+        >
+        <a href=".\mango\4_upci.html" class="floating-nav-item">UPCI</a>
+        <a href=".\mango\5_como_inicio.html" class="floating-nav-item"
+          >Cómo Inicio</a
+        >
+        <a href=".\mango\6_es_complicado.html" class="floating-nav-item"
+          >Es Complicado</a
+        >
+        <a href=".\mango\7_documentos.html" class="floating-nav-item"
+          >Documentos</a
+        >
+      </div>
+    </div>
+
+    <section id="contenido">
+      <div class="essential-card-container">
+        <div class="essential-card animate">
+          <h3>🌟 Introducción</h3>
+          <p>
+            Conceptos básicos y fundamentos de las exportaciones internacionales
+            de mango.
+          </p>
+        </div>
+        <div class="essential-card animate">
+          <h3>📋 Requisitos</h3>
+          <p>
+            Documentación y requisitos legales necesarios para exportar mango.
+          </p>
+        </div>
+        <div class="essential-card animate">
+          <h3>🔍 UPCI</h3>
+          <p>Unidad de Promoción del Comercio Internacional.</p>
+        </div>
+        <div class="essential-card animate">
+          <h3>🚀 ¿Cómo Inicio?</h3>
+          <p>
+            Pasos iniciales y primeras acciones para comenzar a exportar mango.
+          </p>
+        </div>
+        <div class="essential-card animate">
+          <h3>❓ ¿Es Complicado?</h3>
+          <p>Desmitificando el proceso de exportación de mango.</p>
+        </div>
+        <div class="essential-card animate">
+          <h3>📄 Documentos</h3>
+          <p>Formularios, certificados y documentación oficial.</p>
+        </div>
+      </div>
+    </section>
+    <div class="accordion-container">
+      <div class="accordion-item">
+        <div class="accordion-title">
+          Introducción a la Exportación de Mango
+        </div>
+        <div class="accordion-content">
+          <p>
+            [Contenido de introduccion.html se insertará aquí cuando lo
+            proporciones]
+          </p>
+        </div>
+      </div>
+      <div class="accordion-item">
+        <div class="accordion-title">Requisitos Legales</div>
+        <div class="accordion-content">
+          <p>[Contenido de requisitos.html se insertará aquí]</p>
+        </div>
+      </div>
+      <div class="accordion-item">
+        <div class="accordion-title">
+          Unidad de Prácticas Comerciales Internacionales
+        </div>
+        <div class="accordion-content">
+          <p>[Contenido de upci.html se insertará aquí]</p>
+        </div>
+      </div>
+      <div class="accordion-item">
+        <div class="accordion-title">Primeros Pasos para Exportar</div>
+        <div class="accordion-content">
+          <p>[Contenido de como_inicio.html se insertará aquí]</p>
+        </div>
+      </div>
+      <div class="accordion-item">
+        <div class="accordion-title">Consejos para Exportar</div>
+        <div class="accordion-content">
+          <p>[Contenido de es_complicado.html se insertará aquí]</p>
+        </div>
+      </div>
+      <div class="accordion-item">
+        <div class="accordion-title">Documentación Necesaria</div>
+        <div class="accordion-content">
+          <p>[Contenido de documentos.html se insertará aquí]</p>
+        </div>
+      </div>
+    </div>
+    <footer class="footer">
+      <div class="footer-grid">
+        <div>
+          <h3>Mango Export Jalisco</h3>
+          <p>Tu guía completa para exportar mango jalisciense.</p>
+        </div>
+        <div>
+          <h3>Enlaces Rápidos</h3>
+          <p>
+            <a href=".\mango\1_index.html" class="nav-item">Inicio</a>
+            <br />
+            <a href=".\mango\2_introduccion.html" class="nav-item"
+              >Introducción</a
+            >
+            <br />
+            <a href=".\mango\3_requisitos.html" class="nav-item">Requisitos</a>
+            <br />
+            <a href=".\mango\4_upci.html" class="nav-item">UPCI</a>
+            <br />
+            <a href=".\mango\5_como_inicio.html" class="nav-item"
+              >Cómo Inicio</a
+            >
+            <br />
+            <a href=".\mango\6_es_complicado.html" class="nav-item"
+              >Es Complicado</a
+            >
+            <br />
+            <a href=".\mango\7_documentos.html" class="nav-item">Documentos</a>
+          </p>
+        </div>
+        <div>
+          <h3>Contacto</h3>
+          <p>
+            info@mangoexport.mx <br />+52 33 1234 5678 <br />Guadalajara,
+            Jalisco
+          </p>
+        </div>
+      </div>
+      <p>
+        © 2025 Guía de Exportaciones de Mango. Todos los derechos reservados.
+      </p>
+    </footer>
+
+    <script>
+      (function () {
+        function c() {
+          var b = a.contentDocument || a.contentWindow.document;
+          if (b) {
+            var d = b.createElement("script");
+            d.innerHTML =
+              "window.__CF$cv$params={r:'96209b7c2bb0576f',t:'MTc1Mjk5NTA5Ny4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";
+            b.getElementsByTagName("head")[0].appendChild(d);
+          }
+        }
+        if (document.body) {
+          var a = document.createElement("iframe");
+          a.height = 1;
+          a.width = 1;
+          a.style.position = "absolute";
+          a.style.top = 0;
+          a.style.left = 0;
+          a.style.border = "none";
+          a.style.visibility = "hidden";
+          document.body.appendChild(a);
+          if ("loading" !== document.readyState) c();
+          else if (window.addEventListener)
+            document.addEventListener("DOMContentLoaded", c);
+          else {
+            var e = document.onreadystatechange || function () {};
+            document.onreadystatechange = function (b) {
+              e(b);
+              "loading" !== document.readyState &&
+                ((document.onreadystatechange = e), c());
+            };
+          }
+        }
+      })();
+    </script>
+  </body>
+</html>
